@@ -22,6 +22,15 @@ game = {
 };
 
 //Declaracion de Constantes//
+const keyMap = {
+    "Enter": 13,
+    "ArrowLeft": 37,
+    "ArrowUp": 38,
+    "arrowRight": 39,
+    "ArrowDown": 40,
+    "Space": 32
+}
+
 const KEY_ENTER = 13;
 const KEY_LEFT = 37;
 const KEY_UP = 38;
@@ -299,12 +308,17 @@ const score = () => {
 // Listener //
 
 document.addEventListener("keydown", function (e) {
-    game.teclaPulsada = e.Code;
-    game.tecla[e.Code] = true;
+    if (keyMap[e.code] !== undefined) {
+        game.teclaPulsada = e.Code;
+        game.tecla[keyMap[e.Code]] = true;
+    }
+
 });
 
 document.addEventListener("keyup", function (e) {
-    game.tecla[e.code] = false;
+    if (keyMap[e.code] !== undefined) {
+        game.tecla[e.code] = false;
+    }
 });
 
 window.requestAnimationFrame = (function () {
@@ -319,9 +333,9 @@ window.requestAnimationFrame = (function () {
 })();
 
 window.onload = function () {
-    game.canvas = document.getElementById("pantalla");
+    game.canvas = document.getElementById("canvas");
     if (game.canvas && game.canvas.getContext) {
-        game.ctx = game.canvas.getContext("2d");
+        game.ctx = canvas.getContext("2d");
         if (game.ctx) {
 
             game.boing = document.getElementById("boing");
